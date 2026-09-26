@@ -1,0 +1,24 @@
+# secrets
+.env
+
+# data (large, and re-downloadable)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# models and caches
+.model_cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+
+# eval run output (commit ablation.md when you have real results)
+eval/results/*.json
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store

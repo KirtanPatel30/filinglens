@@ -1,0 +1,5 @@
+# Data pipeline (run on your laptop only)
+-r requirements.txt
+edgartools>=4.0
+beautifulsoup4>=4.12
+lxml>=5.0

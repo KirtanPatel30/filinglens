@@ -1,0 +1,407 @@
+/* FilingLens: an auditor's working paper.
+   Pale green columnar-pad paper, blue-black ink, and the red and green pencil ticks
+   auditors use to mark figures they've agreed to source. The one bold moment is the
+   tick marks drawing themselves in the margin once each sentence has been checked. */
+
+:root {
+  --paper: #eaf1e6;
+  --paper-deep: #dde8d7;
+  --rule: #bfd3b7;
+  --rule-strong: #93b489;
+  --ink: #1c2b4a;
+  --ink-soft: #3d4a66;
+  --graphite: #5e6673;
+  --pencil-red: #b33a2b;
+  --pencil-green: #2d7446;
+  --highlight: #f3e36a;
+  --sheet: #f6f9f3;
+  --focus: #1c2b4a;
+
+  --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.1875rem;
+  --step-2: 1.5rem;
+  --step-3: 2.25rem;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #13201a;
+  --paper-deep: #0f1a15;
+  --rule: #273a30;
+  --rule-strong: #3b5a49;
+  --ink: #e3ebdf;
+  --ink-soft: #c1ccbd;
+  --graphite: #93a097;
+  --pencil-red: #ea7c6c;
+  --pencil-green: #7fcb98;
+  --highlight: rgba(243, 227, 106, 0.3);
+  --sheet: #182820;
+  --focus: #e3ebdf;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #13201a;
+    --paper-deep: #0f1a15;
+    --rule: #273a30;
+    --rule-strong: #3b5a49;
+    --ink: #e3ebdf;
+    --ink-soft: #c1ccbd;
+    --graphite: #93a097;
+    --pencil-red: #ea7c6c;
+    --pencil-green: #7fcb98;
+    --highlight: rgba(243, 227, 106, 0.3);
+    --sheet: #182820;
+    --focus: #e3ebdf;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-underline-offset: 3px; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ------------------------------------------------------------ masthead */
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 1.25rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.brand { display: flex; align-items: center; gap: 0.85rem; }
+
+.brand-mark {
+  width: 44px; height: 44px; flex: none;
+  fill: none; stroke: var(--pencil-green); stroke-width: 4.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: var(--step-3);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.tagline { margin: 0.3rem 0 0; color: var(--ink-soft); font-size: var(--step--1); }
+
+.status { display: flex; align-items: center; gap: 1rem; font-size: var(--step--1); color: var(--graphite); }
+.status-item::before {
+  content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  margin-right: 0.45rem; vertical-align: 1px; background: var(--rule-strong);
+}
+.status-item.ok::before { background: var(--pencil-green); }
+.status-item.bad::before { background: var(--pencil-red); }
+.status-item:empty { display: none; }
+
+.theme-toggle {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1px solid var(--rule-strong); border-radius: 50%;
+  background: transparent; color: var(--ink); cursor: pointer;
+}
+.theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+
+/* ------------------------------------------------------------ layout */
+
+main { max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ------------------------------------------------------------ ask */
+
+.ask { padding: 2.25rem 0 1.5rem; max-width: 860px; }
+
+.ask-label { display: block; font-weight: 600; font-size: var(--step-1); margin-bottom: 0.75rem; }
+
+.ask-row { display: flex; gap: 0.75rem; align-items: flex-end; }
+
+#question {
+  flex: 1;
+  resize: vertical;
+  min-height: 3.4rem;
+  padding: 0.6rem 0.1rem 0.5rem;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  background:
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.6em - 1px), var(--rule) calc(1.6em - 1px), var(--rule) 1.6em);
+  background-position: 0 0.55rem;
+  color: var(--ink);
+  font: 400 var(--step-1)/1.6 var(--serif);
+}
+#question::placeholder { color: var(--graphite); opacity: 0.8; }
+#question:focus { outline: none; border-bottom-color: var(--pencil-green); }
+
+.ask-btn {
+  padding: 0.7rem 1.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font: 600 var(--step-0) var(--sans);
+  cursor: pointer;
+}
+.ask-btn:hover { background: transparent; color: var(--ink); }
+.ask-btn[disabled] { opacity: 0.55; cursor: progress; }
+
+.examples { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin-top: 1rem; font-size: var(--step--1); }
+.examples-label { color: var(--graphite); }
+.example {
+  padding: 0; border: 0; background: none; color: var(--ink-soft);
+  font: inherit; text-align: left; cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px;
+}
+.example:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+.switches { margin-top: 1.25rem; font-size: var(--step--1); color: var(--ink-soft); }
+.switches summary { cursor: pointer; color: var(--graphite); width: fit-content; }
+.switches-note { margin: 0.6rem 0 0.4rem; }
+.switches label { display: flex; gap: 0.55rem; align-items: baseline; padding: 0.2rem 0; }
+.switches input { accent-color: var(--ink); }
+
+/* ------------------------------------------------------------ result */
+
+.result {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 3rem;
+}
+.result[hidden] { display: none; }
+
+/* The working paper: a ruled sheet with a red margin line, like a columnar pad. */
+.paper {
+  position: relative;
+  background: var(--sheet);
+  border: 1px solid var(--rule-strong);
+  padding: 1.75rem 1.75rem 1.5rem 4.25rem;
+  box-shadow: 4px 4px 0 var(--paper-deep);
+}
+.paper::before {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 3.1rem;
+  border-left: 1px solid var(--pencil-red);
+  opacity: 0.45;
+}
+
+.paper-head h2 {
+  margin: 0;
+  font: 600 var(--step-2)/1.25 var(--serif);
+  letter-spacing: -0.01em;
+  max-width: 42ch;
+}
+.paper-summary { margin: 0.5rem 0 0; color: var(--graphite); font-size: var(--step--1); min-height: 1.2em; }
+.paper-summary strong { color: var(--ink); font-weight: 600; }
+
+.claims { margin-top: 1.25rem; border-top: 1px solid var(--rule); }
+
+.claim {
+  position: relative;
+  padding: 0.7rem 0 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  font: 400 var(--step-1)/1.6 var(--serif);
+  max-width: 68ch;
+  cursor: default;
+}
+.claim.is-active { background: linear-gradient(to right, transparent, var(--paper) 30%); }
+.claim .tick { position: absolute; left: -3.95rem; top: 0.95rem; }
+.claim.pending { color: var(--ink-soft); }
+
+.claim-note {
+  display: block; margin-top: 0.2rem;
+  font: 400 var(--step--1)/1.45 var(--sans); color: var(--pencil-red);
+}
+.claim-note.muted { color: var(--graphite); }
+
+.refused {
+  padding: 1rem 0; font: 400 var(--step-1)/1.6 var(--serif);
+}
+.refused .claim-note { color: var(--graphite); }
+
+.error-box {
+  margin-top: 1.25rem; padding: 0.9rem 1rem;
+  border-left: 3px solid var(--pencil-red);
+  background: var(--paper);
+  font-size: var(--step--1);
+}
+
+/* citation reference, like a working-paper cross-reference */
+.ref {
+  display: inline-grid; place-items: center;
+  min-width: 1.35rem; height: 1.25rem; padding: 0 0.25rem; margin: 0 0.1rem;
+  border: 1px solid var(--ink-soft); border-radius: 2px;
+  background: transparent; color: var(--ink);
+  font: 600 0.7rem/1 var(--sans); vertical-align: 0.2em; cursor: pointer;
+}
+.ref:hover, .ref.is-active { background: var(--ink); color: var(--sheet); }
+
+/* tick marks */
+.tick { width: 30px; height: 24px; fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tick.ok { stroke: var(--pencil-green); }
+.tick.bad { stroke: var(--pencil-red); stroke-width: 1.9; }
+.tick.weak { stroke: var(--graphite); }
+.tick.draw path, .tick.draw circle { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw 0.5s ease-out forwards; }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.legend {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem;
+  margin-top: 1rem; font-size: var(--step--1); color: var(--graphite);
+}
+.legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.legend .tick { width: 22px; height: 18px; }
+.legend[hidden] { display: none; }
+
+/* audit trail: the real sequence of steps, so numbering is meaningful */
+.trail {
+  list-style: none; counter-reset: step;
+  margin: 1.75rem 0 0; padding: 1rem 0 0;
+  border-top: 2px solid var(--ink);
+  font-size: var(--step--1);
+}
+.trail:empty { display: none; }
+.trail li {
+  counter-increment: step;
+  display: grid; grid-template-columns: 1.6rem 1fr auto; gap: 0 0.5rem;
+  padding: 0.35rem 0; border-bottom: 1px dotted var(--rule-strong);
+}
+.trail li::before { content: counter(step); color: var(--graphite); font-weight: 600; }
+.trail .step-label { font-weight: 600; }
+.trail .step-detail { grid-column: 2 / 4; color: var(--graphite); overflow-wrap: anywhere; }
+.trail .step-ms { color: var(--graphite); text-align: right; }
+.trail li.running .step-ms::after {
+  content: ""; display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 50%;
+  background: var(--pencil-green); animation: pulse 1s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: 0.25; } }
+
+/* ------------------------------------------------------------ sources */
+
+.sources { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding-right: 0.25rem; }
+.sources-title { margin: 0 0 0.75rem; font-size: var(--step-1); font-weight: 600; }
+
+.source {
+  position: relative;
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem 0.9rem 1rem;
+  background: var(--sheet);
+  border: 1px solid var(--rule-strong);
+  border-left: 5px solid var(--rule-strong);
+  scroll-margin-top: 1rem;
+}
+.source.is-active { border-left-color: var(--ink); }
+
+.source-head { display: flex; gap: 0.7rem; align-items: baseline; }
+.source-n {
+  flex: none; display: grid; place-items: center;
+  min-width: 1.6rem; height: 1.6rem;
+  background: var(--ink); color: var(--sheet); font-weight: 600; font-size: var(--step--1);
+}
+.source-title { margin: 0; font-size: var(--step--1); font-weight: 600; line-height: 1.35; }
+.source-meta { display: block; font-weight: 400; color: var(--graphite); }
+
+.source-body {
+  margin-top: 0.6rem;
+  font: 400 0.92rem/1.6 var(--serif);
+  color: var(--ink-soft);
+  max-height: 11.5rem; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+          mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+.source.is-open .source-body { max-height: none; -webkit-mask-image: none; mask-image: none; }
+.source-caption { margin: 0 0 0.4rem; font-family: var(--sans); font-size: var(--step--1); color: var(--graphite); }
+
+.source-body mark { background: var(--highlight); color: inherit; padding: 0.05em 0.1em; }
+
+.fig-wrap { overflow-x: auto; }
+.fig { border-collapse: collapse; width: 100%; font: 400 var(--step--1)/1.4 var(--sans); }
+.fig td { padding: 0.25rem 0.5rem; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.fig td:first-child { white-space: normal; min-width: 11rem; }
+.fig td:not(:first-child) { text-align: right; }
+.fig tr.hit td { background: var(--highlight); color: var(--ink); }
+
+.source-toggle {
+  margin-top: 0.4rem; padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--ink-soft); font: 500 var(--step--1) var(--sans);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+.source-scores { margin-top: 0.35rem; font-size: 0.75rem; color: var(--graphite); }
+
+/* ------------------------------------------------------------ coverage ledger */
+
+.coverage { padding: 1rem 0 3rem; }
+.coverage h2 { margin: 0; font-size: var(--step-1); font-weight: 600; }
+.coverage-note { margin: 0.25rem 0 1rem; color: var(--graphite); font-size: var(--step--1); }
+.coverage-scroll { overflow-x: auto; }
+
+.ledger { border-collapse: collapse; font-size: var(--step--1); background: var(--sheet); border: 1px solid var(--rule-strong); }
+.ledger th, .ledger td { padding: 0.4rem 0.9rem; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.ledger thead th { border-bottom: 2px solid var(--ink); text-align: right; font-weight: 600; }
+.ledger thead th:first-child { text-align: left; }
+.ledger td { text-align: right; color: var(--ink-soft); }
+.ledger td.missing { color: var(--rule-strong); }
+.ledger th[scope="row"] { text-align: left; font-weight: 400; padding: 0; }
+.ledger .pick {
+  width: 100%; padding: 0.4rem 0.9rem; border: 0; background: none; cursor: pointer;
+  color: var(--ink); font: inherit; text-align: left;
+}
+.ledger .pick:hover { background: var(--paper); }
+.ledger .ticker { color: var(--graphite); margin-left: 0.4rem; }
+
+/* ------------------------------------------------------------ footer */
+
+.foot {
+  max-width: 1240px; margin: 0 auto; padding: 1.25rem 1.5rem 2.5rem;
+  border-top: 1px solid var(--rule-strong);
+  color: var(--graphite); font-size: var(--step--1);
+}
+.foot p { margin: 0.2rem 0; max-width: 80ch; }
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 900px) {
+  .result { grid-template-columns: 1fr; }
+  .sources { position: static; max-height: none; overflow: visible; }
+}
+
+@media (max-width: 560px) {
+  .masthead { padding: 1.25rem 1rem 1rem; }
+  main { padding: 0 1rem; }
+  .ask-row { flex-direction: column; align-items: stretch; }
+  .paper { padding: 1.25rem 1rem 1.25rem 3rem; }
+  .paper::before { left: 2.2rem; }
+  .claim .tick { left: -2.9rem; width: 24px; }
+  .claim { font-size: var(--step-0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tick.draw path, .tick.draw circle { animation: none; stroke-dashoffset: 0; }
+  .trail li.running .step-ms::after { animation: none; }
+}

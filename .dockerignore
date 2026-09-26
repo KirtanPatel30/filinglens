@@ -1,0 +1,10 @@
+.env
+venv/
+.venv/
+data/
+.model_cache/
+__pycache__/
+.pytest_cache/
+.git/
+eval/results/
+tests/
