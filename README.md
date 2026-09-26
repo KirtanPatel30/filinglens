@@ -229,6 +229,4 @@ The **Pipeline settings** panel in the app changes the same switches per questio
   are checked strictly.
 - Not investment advice.
 
-## License
 
-MIT
