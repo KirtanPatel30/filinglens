@@ -44,19 +44,7 @@ flowchart LR
    - **Meaning:** the sentence must be close in meaning to a sentence or table row in the
      cited source.
 
-## Results
 
-Run on a hand-labeled benchmark (`eval/questions.json`). Each row turns on one more part
-of the pipeline.
-
-| Setup | Recall@5 | Numbers correct | Correct refusals | Faithfulness | Median latency (s) |
-|---|---|---|---|---|---|
-| Vector only | _fill in_ | | | | |
-| + Keyword (hybrid) | | | | | |
-| + Reranker | | | | | |
-| + Router and retry (full) | | | | | |
-
-_Generate this table with `python -m eval.run_eval` (see below)._
 
 ## Tech stack
 
